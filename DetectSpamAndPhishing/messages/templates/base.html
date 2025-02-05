@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'messages/css/styles.css' %}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="{% url 'messages:index' %}">SecureInbox</a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'messages:messages' %}">Сообщения</a></li>
+            <li><a href="#">Найденные угрозы</a></li>
+            <li><a href="#">Обучающие материалы</a></li>
+        </ul>
+    </nav>
+</header>
+{% block main_content %}{% endblock %}
+</body>
+</html>
