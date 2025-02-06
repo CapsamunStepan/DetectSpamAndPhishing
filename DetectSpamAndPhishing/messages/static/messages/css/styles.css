@@ -110,7 +110,7 @@ nav ul li a:hover {
     margin: 10px;
     border-radius: 8px;
     width: 30%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .feature p {
@@ -156,4 +156,148 @@ nav ul li a:hover {
 .centered {
     display: flex;
     justify-content: center;
+}
+
+.form-container {
+    background: white;
+    padding: 30px;
+    margin-top: 50px;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    transition: ease-in-out 0.3s;
+}
+
+.form-container:hover {
+    border: 1px solid lightblue;
+    box-shadow: 0 0 10px rgba(173, 216, 230, 0.9);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-container .btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-container .btn:hover {
+    background: #0056b3;
+}
+
+/* Стили для модального окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #D32F2F;
+    position: relative;
+    width: 600px;
+}
+
+.modal p {
+    padding: 5px 0;
+}
+
+/* Крестик (закрытие) */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #D32F2F;
+}
+
+.close:hover {
+    color: black;
+}
+
+/* Фото */
+.warning-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+/* Ссылка */
+.modal-content a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.modal-content a:hover {
+    text-decoration: underline;
+}
+
+.help-text {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    color: #555;
+}
+
+.help-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.help-text a:hover {
+    text-decoration: underline;
 }

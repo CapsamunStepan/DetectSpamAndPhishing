@@ -1,4 +1,6 @@
+import time
 from django.shortcuts import render
+from .forms import GmailCredentialsForm
 
 
 # Create your views here.
@@ -7,8 +9,31 @@ def index(request):
 
 
 def messages_list(request):
-    return render(request, 'messages/messages_list.html')
+    got_messages = False
+    messages = {}
+    if request.method == "POST":
+        form = GmailCredentialsForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            email = cd['gmail']
+            password = cd['oauth2_key']
+            # time.sleep(1)
+            messages = read_emails(email, password)
+            if messages:
+                got_messages = True
+                messages = dict(reversed(list(messages.items())))
+    else:
+        form = GmailCredentialsForm()
+    return render(request,
+                  'messages/messages_list.html',
+                  {'messages': messages,
+                   'got_messages': got_messages,
+                   'form': form})
 
 
 def concrete_message(request):
     return None
+
+
+def help2OAuth2Key(request):
+    return render(request, 'messages/help.html')

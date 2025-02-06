@@ -1,7 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Главная{% endblock %}
 {% block main_content %}
     <div class="main-content">
-        <h2>Ваши сообщения</h2>
+        <!-- Модальное окно -->
+        {% if false %}
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">×</span>
+                    <img src="{% static 'messages/img/warning.png' %}" alt="Warning" class="warning-img">
+                    <p>Никому не передавайте OAuth2-ключ от вашей почты</p>
+                    <p>Если вы считаете, что ваш ключ был скомпрометирован, <br> <a
+                            href="https://myaccount.google.com/security-checkup" target="_blank">отключите его здесь</a>.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="inbox">
+            {% if got_messages %}
+                <h2>Ваши сообщения</h2>
+                {% for email_id, email_info in messages %}
+                    <div class="message">
+                        <p>From: {{ email_info.From }}</p>
+                        <p>Subject: {{ email_info.Subject }}</p>
+                        <p>Date: {{ email_info.Date }}</p>
+                        <p>Body: {{ email_info.Body }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="centered">
+                    <div class="form-container">
+                        <h2>Заполните форму:</h2>
+
+                        <form action="#" method="post">
+                            <label for="id_gmail">📧 Gmail:</label>
+                            <input type="email" name="gmail" class="form-control" required id="id_gmail"
+                                   placeholder="example@gmail.com">
+
+                            <label for="id_oauth2_key">🔑 API Key:</label>
+                            <input type="text" name="oauth2_key" class="form-control" required id="id_oauth2_key"
+                                   placeholder="Введите ваш OAuth2 ключ">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Отправить</button>
+                        </form>
+                        <p class="help-text">
+                            ❓ Не знаете, где взять API Key?
+                            <a href="{% url 'messages:help' %}" target="_blank">Ознакомьтесь с инструкцией</a>.
+                        </p>
+                    </div>
+
+                </div>
+
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
