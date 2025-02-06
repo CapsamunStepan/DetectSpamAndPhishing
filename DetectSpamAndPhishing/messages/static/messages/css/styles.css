@@ -301,3 +301,76 @@ label {
 .help-text a:hover {
     text-decoration: underline;
 }
+
+.main-content-help {
+    max-width: 85%;
+    margin: 30px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-content-help h2 {
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.main-content-help h3 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.main-content-help p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Стили для изображений */
+.main-content-help .help-img {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.main-content-help .help-img img {
+    max-width: 90%;
+    margin: 35px 0;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Оформление ссылок */
+.main-content-help a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main-content-help a:hover {
+    text-decoration: underline;
+}
+
+/* Внимание (предупреждение) */
+.main-content-help .warning {
+    background: #FFD700;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(255, 255, 0, 0.2);
+}
+
+.main-content-help .warning.danger {
+    background: #ff4d4d; /* Красный фон */
+    color: white; /* Белый текст */
+    padding: 12px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+}
