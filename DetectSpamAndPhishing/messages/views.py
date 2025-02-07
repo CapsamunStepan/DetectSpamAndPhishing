@@ -1,6 +1,12 @@
 import time
 from django.shortcuts import render
 from .forms import GmailCredentialsForm
+import sys
+from .path_utils import get_path2file_getMessages
+
+path2file_getMessages = get_path2file_getMessages()
+sys.path.append(str(path2file_getMessages.parent))
+from getMessages import read_emails
 
 
 # Create your views here.

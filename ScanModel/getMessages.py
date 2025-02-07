@@ -1,7 +1,6 @@
 import imaplib
 import email
 from email.header import decode_header
-from user import password, username
 
 
 def decode_str(s):
@@ -31,7 +30,7 @@ def read_emails(username_, password_):
     # Разбиваем строку на отдельные идентификаторы
     ids = data[0].split()
 
-    # Создаем пустой словарь для хранения писем
+    # Словарь для хранения писем
     messages = {}
 
     # Читаем письма
@@ -52,7 +51,8 @@ def read_emails(username_, password_):
                 content_disposition = str(part.get("Content-Disposition"))
                 try:
                     body = part.get_payload(decode=True).decode()
-                except:
+                except Exception as e:
+                    print(e)
                     pass
                 if content_type == "text/plain" and "attachment" not in content_disposition:
                     # Добавляем информацию о письме в словарь messages
@@ -81,7 +81,7 @@ def read_emails(username_, password_):
 
 
 if __name__ == '__main__':
-    # Укажите ваше имя пользователя и пароль
+    from user import password, username
     messages = read_emails(username, password)
     for message_id, message_data in messages.items():
         print(message_data['Body'])
