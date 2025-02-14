@@ -203,7 +203,7 @@ label {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.form-container,  .load_more .btn {
+.form-container .btn, .load_more .btn {
     display: block;
     padding: 12px;
     margin-top: 20px;
@@ -225,7 +225,7 @@ label {
     margin: 30px;
 }
 
-.form-container, .load_more .btn:hover {
+.load_more .btn:hover, .form-container .btn:hover {
     background: #0056b3;
 }
 

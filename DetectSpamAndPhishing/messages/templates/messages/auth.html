@@ -4,7 +4,7 @@
 {% block main_content %}
     <div class="main-content">
         <!-- Модальное окно -->
-        {% if not is_credentials %}
+        {% if show_modal_window %}
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">×</span>

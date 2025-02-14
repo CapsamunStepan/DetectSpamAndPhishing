@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .forms import GmailCredentialsForm
 from .get_messages import read_emails
+import random
 
 
 def index(request):
@@ -10,6 +11,7 @@ def index(request):
 def authenticate_user(request):
     form = GmailCredentialsForm(request.POST or None)
     is_credentials = False
+    show_modal_window = random.random() < 0.1
     if request.session.get('email') and request.session.get('password'):
         is_credentials = True
     if request.method == "POST" and form.is_valid():
@@ -23,6 +25,7 @@ def authenticate_user(request):
     return render(request, 'messages/auth.html', {
         'is_credentials': is_credentials,
         'form': form,
+        'show_modal_window': show_modal_window
     })
 
 
