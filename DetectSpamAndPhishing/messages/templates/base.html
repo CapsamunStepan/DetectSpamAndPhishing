@@ -16,9 +16,10 @@
     </div>
     <nav>
         <ul>
-            <li><a href="{% url 'messages:messages' %}">Сообщения</a></li>
+            <li><a href="{% url 'messages:messages_list' %}">Сообщения</a></li>
             <li><a href="#">Найденные угрозы</a></li>
             <li><a href="#">Обучающие материалы</a></li>
+            <li><a href="{% url 'messages:authenticate_user' %}">Аутентификация</a></li>
         </ul>
     </nav>
 </header>

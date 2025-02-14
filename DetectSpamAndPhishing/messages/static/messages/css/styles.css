@@ -203,9 +203,8 @@ label {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.form-container .btn {
+.form-container,  .load_more .btn {
     display: block;
-    width: 100%;
     padding: 12px;
     margin-top: 20px;
     background: #007BFF;
@@ -217,7 +216,16 @@ label {
     transition: 0.3s;
 }
 
-.form-container .btn:hover {
+.form-container .btn {
+    width: 100%;
+}
+
+.load_more .btn {
+    font-size: 16px;
+    margin: 30px;
+}
+
+.form-container, .load_more .btn:hover {
     background: #0056b3;
 }
 
@@ -373,4 +381,58 @@ label {
     font-weight: bold;
     margin-top: 20px;
     box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+}
+
+.message {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    margin: 30px;
+}
+
+.message p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.message p strong {
+    color: #333;
+}
+
+.choose-outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.choose-inner-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 30px 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.load_messages_count {
+    margin-left: 20px;
 }

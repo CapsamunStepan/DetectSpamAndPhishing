@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ваши сообщения{% endblock %}
+{% block main_content %}
+    <div class="main-content">
+        <!-- Модальное окно -->
+        {% if not is_credentials %}
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">×</span>
+                    <img src="{% static 'messages/img/warning.png' %}" alt="Warning" class="warning-img">
+                    <p>Никому не передавайте OAuth2-ключ от вашей почты</p>
+                    <p>Если вы считаете, что ваш ключ был скомпрометирован, <br> <a
+                            href="https://myaccount.google.com/security-checkup" target="_blank">отключите его здесь</a>.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+        {% if not is_credentials %}
+            <div class="centered">
+                <div class="form-container">
+                    <h2>Заполните форму:</h2>
+
+                    <form action="{% url 'messages:authenticate_user' %}" method="post">
+                        <label for="id_gmail">📧 Gmail:</label>
+                        <input type="email" name="gmail" class="form-control" required id="id_gmail"
+                               placeholder="example@gmail.com">
+
+                        <label for="id_oauth2_key">🔑 API Key:</label>
+                        <input type="text" name="oauth2_key" class="form-control" required id="id_oauth2_key"
+                               placeholder="Введите ваш OAuth2 ключ">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">Отправить</button>
+                    </form>
+                    <p class="help-text">
+                        ❓ Не знаете, где взять API Key?
+                        <a href="{% url 'messages:help' %}" target="_blank">Ознакомьтесь с инструкцией</a>.
+                    </p>
+                </div>
+            </div>
+        {% else %}
+            <div class="choose-outer-container">
+                <div class="choose-inner-container">
+                    <h2>Выберите действие:</h2>
+                    <a href="{% url 'messages:new_email_data' %}" class="button">Ввести новые данные почты</a>
+                    <a href="{% url 'messages:messages_list' %}" class="button">Прочитать сообщения</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

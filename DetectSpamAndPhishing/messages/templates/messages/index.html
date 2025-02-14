@@ -8,7 +8,7 @@
             <p>Каждый день миллионы пользователей становятся жертвами кибератак, мошеннических писем и вредоносных
                 ссылок. SecureInbox создан, чтобы защитить вашу почту от скрытых угроз!</p>
             <div class="centered">
-                <a href="{% url 'messages:messages' %}" class="btn">Попробовать сейчас</a>
+                <a href="{% url 'messages:authenticate_user' %}" class="btn">Попробовать сейчас</a>
             </div>
         </section>
 
@@ -40,7 +40,7 @@
                 <li>✅ Простота использования</li>
             </ul>
             <div class="centered">
-                <a href="{% url 'messages:messages' %}" class="btn">Начать защиту</a>
+                <a href="{% url 'messages:authenticate_user' %}" class="btn">Начать защиту</a>
             </div>
         </section>
     </div>
