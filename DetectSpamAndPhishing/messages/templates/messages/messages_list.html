@@ -6,12 +6,12 @@
         <div class="inbox">
             {% if got_messages %}
                 <h2>Ваши сообщения | Всего: {{ total_messages }}</h2>
-                {% for email_id, email_info in messages.items %}
+                {% for message in messages %}
                     <div class="message">
-                        <p>ID={{ email_id }}</p>
-                        <p><strong>From:</strong> {{ email_info.From }}</p>
-                        <p><strong>Subject:</strong> {{ email_info.Subject }}</p>
-                        <p><strong>Date:</strong> {{ email_info.Date }}</p>
+                        <p>ID={{ message.gmail_id }}</p>
+                        <p><strong>From:</strong> {{ message.sender }}</p>
+                        <p><strong>Subject:</strong> {{ message.subject }}</p>
+                        <p><strong>Date:</strong> {{ message.received_at }}</p>
                     </div>
                 {% endfor %}
 

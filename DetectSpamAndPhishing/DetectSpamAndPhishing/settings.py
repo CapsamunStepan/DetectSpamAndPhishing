@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'messages.apps.MessagesConfig',
+    'django_q'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+Q_CLUSTER = {
+    'name': 'DjangoQ',
+    'workers': 4,
+    'timeout': 60,
+    'retry': 300,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default'
+}

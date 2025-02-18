@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Обучающие материалы{% endblock %}
+{% block main_content %}
+    <div class="main-content">
+        <h2>Обучающие материалы</h2>
+        <a class="material-link" href="{% url 'messages:delivery_threats' %}">
+            <div class="material-cnt">
+                <p class="title">Почтовое мошенничество</p>
+                <p class="subject">На этой странице будет объяснено, как не попадаться на почтовых мошенников, которые
+                    под видом курьерских компаний и почт скидывают сообщения об корректировки некоторых данных
+                    доставки и воруют банковские данные.</p>
+            </div>
+        </a>
+        <a class="material-link" href="#">
+            <div class="material-cnt">
+                <p class="title">Название</p>
+                <p class="subject">тема</p>
+            </div>
+        </a>
+    </div>
+{% endblock %}

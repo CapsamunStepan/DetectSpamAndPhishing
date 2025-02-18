@@ -436,3 +436,23 @@ label {
 .load_messages_count {
     margin-left: 20px;
 }
+
+.material-link {
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+}
+
+.material-cnt {
+    margin: 30px 60px;
+    background: #a2c6ec;
+    padding: 25px;
+    border-radius: 10px;
+
+    .title {
+        font-weight: bold;
+        font-size: 21px;
+        margin-bottom: 12px;
+    }
+}

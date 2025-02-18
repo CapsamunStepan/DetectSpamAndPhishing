@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .forms import GmailCredentialsForm
-from .get_messages import read_emails
+from .models import GmailUser, GmailMessage
+from .get_messages import read_emails, get_total_messages_count, check_OAuth2key
 import random
+from email.utils import parsedate_to_datetime
+from django_q.tasks import async_task
 
 
 def index(request):
@@ -11,21 +14,26 @@ def index(request):
 def authenticate_user(request):
     form = GmailCredentialsForm(request.POST or None)
     is_credentials = False
+    is_correct_credentials = False
     show_modal_window = random.random() < 0.1
-    if request.session.get('email') and request.session.get('password'):
+    if request.session.get('gmail') and request.session.get('password'):
         is_credentials = True
     if request.method == "POST" and form.is_valid():
         cd = form.cleaned_data
-        email = cd['gmail']
+        gmail = cd['gmail']
         password = cd['oauth2_key']
-        request.session['email'] = email
-        request.session['password'] = password
-        is_credentials = True
+        is_correct_credentials = check_OAuth2key(gmail, password)  # выполняется около секунды
+        if is_correct_credentials:
+            request.session['gmail'] = gmail
+            request.session['password'] = password
+            user, _ = GmailUser.objects.get_or_create(gmail=gmail)
+            is_credentials = True
 
     return render(request, 'messages/auth.html', {
         'is_credentials': is_credentials,
         'form': form,
-        'show_modal_window': show_modal_window
+        'show_modal_window': show_modal_window,
+        'is_correct_credentials': is_correct_credentials,
     })
 
 
@@ -42,21 +50,57 @@ def help2OAuth2Key(request):
 
 
 def new_email_data(request):
-    request.session.pop('email', None)
+    request.session.pop('gmail', None)
     request.session.pop('password', None)
-
     return redirect(to='messages:authenticate_user')
 
 
 def messages_list(request):
-    # messages, total_messages = read_emails(request.session.get('email'), request.session.get('password'), 15)
-    # got_messages = bool(messages)
-    got_messages = True
-    messages = {}
-    total_messages = 40
-    loaded_messages = len(messages)
+    gmail = request.session.get('gmail')
+    password = request.session.get('password')
+    if not (gmail and password):
+        return redirect(to='messages:authenticate_user')
+    limit = 15
+    total_messages_count = get_total_messages_count(gmail, password)  # около 2 секунд
+    user = GmailUser.objects.get(gmail=gmail)
+    stored_messages = GmailMessage.objects.filter(receiver=user)
+    stored_messages_ids = [message.gmail_id for message in stored_messages]
+    request.session['last_loaded_message_id'] = total_messages_count - limit
+
+    new_messages_ids = [str(x).encode() for x in range(total_messages_count, total_messages_count - limit, -1)
+                        if x not in stored_messages_ids]
+
+    if new_messages_ids:
+        messages = read_emails(gmail, password, new_messages_ids)
+        if messages:
+            for id_, msg in messages.items():
+                GmailMessage.objects.create(
+                    gmail_id=int(id_),
+                    subject=msg['Subject'],
+                    body=msg['Body'],
+                    sender=msg['From'],
+                    receiver=user,
+                    received_at=parsedate_to_datetime(msg['Date']),
+                )
+
+    stored_messages = GmailMessage.objects.filter(receiver=user)
+
     return render(request, 'messages/messages_list.html',
-                  {'messages': messages,
-                   'got_messages': got_messages,
-                   'total_messages': total_messages,
-                   'loaded_messages': loaded_messages, })
+                  {
+                      'got_messages': True,
+                      'messages': stored_messages,
+                      'total_messages': total_messages_count,
+                      'loaded_messages': 15,
+                  })
+
+
+def vulnerabilities_list(request):
+    return render(request, 'messages/vulnerabilities.html')
+
+
+def training_materials(request):
+    return render(request, 'messages/training_materials.html')
+
+
+def delivery_threats(request):
+    return render(request, 'messages/delivery_threats.html')

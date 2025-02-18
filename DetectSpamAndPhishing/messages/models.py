@@ -17,19 +17,20 @@ class GmailUser(models.Model):
 
 class GmailMessage(models.Model):
     PREDICTION_CHOICES = (
+        ('no_prediction', 'NoPrediction'),
         ('spam', 'Spam'),
         ('ham', 'Ham'),
         ('phishing', 'Phishing'),
     )
 
-    message_id = models.IntegerField(primary_key=True, unique=True)
+    message_id = models.IntegerField(primary_key=True, unique=True, auto_created=True)
     gmail_id = models.IntegerField()
     subject = models.TextField()
     body = models.TextField()
     sender = models.TextField()
     receiver = models.ForeignKey(GmailUser, on_delete=models.CASCADE)
     received_at = models.DateTimeField()
-    prediction = models.CharField(max_length=20, choices=PREDICTION_CHOICES, default='ham')
+    prediction = models.CharField(max_length=20, choices=PREDICTION_CHOICES, default='no_prediction')
 
     class Meta:
         ordering = ['-received_at']

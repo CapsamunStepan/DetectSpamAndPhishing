@@ -4,7 +4,6 @@ from email.header import decode_header
 
 
 def decode_str(s):
-    """Декодирует строку из email-заголовка."""
     if not s:
         return None
     value, charset = decode_header(s)[0]
@@ -13,29 +12,42 @@ def decode_str(s):
     return value
 
 
-def read_emails(username_, password_, limit=15, offset=0):
-    # Подключаемся к серверу Gmail
-    mail = imaplib.IMAP4_SSL('imap.gmail.com')
-    mail.login(username_, password_)
+def check_OAuth2key(username_, password_):
+    try:
+        mail = imaplib.IMAP4_SSL('imap.gmail.com')
+        mail.login(username_, password_)
+        mail.logout()
+        return True
+    except:
+        return False
+
+
+def get_total_messages_count(username_, password_):
+    try:
+        mail = imaplib.IMAP4_SSL('imap.gmail.com')
+        mail.login(username_, password_)
+        mail.select('inbox')
+
+        result, data = mail.select('inbox', readonly=True)
+        total_messages = int(data[0])
+        mail.logout()
+
+        return total_messages
+    except:
+        return 0
+
+
+def read_emails(username_, password_, messages_ids):
+    try:
+        mail = imaplib.IMAP4_SSL('imap.gmail.com')
+        mail.login(username_, password_)
+    except:
+        return {}, 0
     mail.select('inbox')
-
-    # Получаем идентификаторы писем (самые новые идут в конце)
-    result, data = mail.search(None, 'ALL')
-    ids = data[0].split()
-
-    # Количество доступных писем
-    total_messages = len(ids)
-
-    # Определяем границы для пагинации
-    start = max(0, total_messages - (offset + limit))
-    end = max(0, total_messages - offset)
-
-    # Отбираем нужные идентификаторы
-    selected_ids = ids[start:end]
 
     messages = {}
 
-    for email_id in reversed(selected_ids):  # Начинаем с самых новых
+    for email_id in messages_ids:
         result, data = mail.fetch(email_id, '(RFC822)')
         raw_email = data[0][1]
         msg = email.message_from_bytes(raw_email)
@@ -67,4 +79,4 @@ def read_emails(username_, password_, limit=15, offset=0):
 
     mail.logout()
 
-    return messages, total_messages
+    return messages
