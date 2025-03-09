@@ -4,5 +4,52 @@
 {% block main_content %}
     <div class="main-content">
         <h2>Почтовое мошенничество</h2>
+        <div class="training-text">
+            <p>Ниже представлены 2 мошеннических сообщения:</p>
+        </div>
+        <div class="training-img">
+            <img src="{% static 'messages/img/delivery-photo1.jpg' %}" alt="photo1">
+            <img src="{% static 'messages/img/delivery-photo4.jpg' %}" alt="photo4">
+        </div>
+        <div class="training-text">
+            <ul>
+                <li><strong>Неизвестный или подозрительный номер отправителя</strong> [номера телефонов не принадлежат
+                    официальным службам доставки или почтовым операторам]
+                </li>
+                <li><strong>Неожиданное сообщение о проблеме с доставкой</strong> [получатель не заказывал посылку или
+                    не ожидает доставки]
+                </li>
+                <li><strong>Неофициальный стиль написания</strong> [сообщения могут содержать грамматические или
+                    стилистические ошибки]
+                </li>
+                <li><strong>Ссылка на неизвестный или сокращённый URL</strong> [использование сервисов сокращения ссылок
+                    (например, shorturl.at, qrco.de), что затрудняет определение конечного адреса]
+                </li>
+                <li><strong>Отсутствие конкретной информации о заказе</strong> [нет номера заказа, данных о службе
+                    доставки или других деталей]
+                </li>
+            </ul>
+        </div>
+        <div class="training-text">
+            <p>Ниже представлены 2 обычных сообщения от почты:</p>
+        </div>
+        <div class="training-img">
+            <img src="{% static 'messages/img/delivery-photo2.jpg' %}" alt="photo2">
+            <img src="{% static 'messages/img/delivery-photo3.jpg' %}" alt="photo3">
+        </div>
+        <div class="training-text">
+            <div class="approved">
+                <ul>
+                    <li><strong>Официальное название отправителя или использование коротких сервисных номеров</strong>
+                    </li>
+                    <li><strong>Конкретная информация о посылке [номер посылки, почта]</strong></li>
+                    <li><strong>Адрес отделения для получения</strong></li>
+                    <li><strong>Отсутствие подозрительных ссылок</strong></li>
+                    <li><strong>Возможность проверки через официальный сайт [там, где был выполнен заказ (информация
+                        должна подтвердиться)]</strong></li>
+                </ul>
+            </div>
+        </div>
+    <div class="space50"></div>
     </div>
 {% endblock %}
